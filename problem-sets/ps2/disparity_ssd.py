@@ -1,6 +1,7 @@
 import numpy as np
+import cv2 as cv
 
-def disparity_ssd(L, R):
+def disparity_ssd(L, R, frame_size=15, inv=0):
     """Compute disparity map D(y, x) such that: L(y, x) = R(y, x + D(y, x))
     
     Params:
@@ -12,7 +13,7 @@ def disparity_ssd(L, R):
 
     # TODO: Your code here
     # define patch size
-    patch = [9,9]
+    patch = [frame_size,frame_size]
     patch_mid = [(patch[0] // 2), (patch[1] // 2)] # only works for odd sized patches
 
     # init disp
@@ -38,7 +39,6 @@ def disparity_ssd(L, R):
                 # check if patches have same size and then compare patches
                 if patch_L.shape == patch_R.shape:
                     ssd = np.sum((patch_L - patch_R)**2)
-
                     # check if ssd is smaller than previous best
                     if ssd_best[0] == -1:
                         ssd_best = [ssd, k - j]
@@ -51,14 +51,18 @@ def disparity_ssd(L, R):
             disp[i, j] = ssd_best[1]
 
     # shift disp to +ve range only if disp contains negative ints
-    if np.min(disp) < 0:
-        disp += np.abs(np.min(disp))
+    # if np.min(disp) < 0:
+    #     disp += np.abs(np.min(disp))
+
+    # flip matrix around 0 if R --> L
+    if not inv:
+        print("inverting", np.min(disp), np.max(disp))
+        disp = np.negative(disp)
+        print("inverted", np.min(disp), np.max(disp))
 
     # scale to [0,1] using minmax normalization
-    disp = (disp - np.min(disp)) / (np.max(disp) - np.min(disp))
-
-    # scale to [0,255]
-    disp *= 254
+    # disp = (disp - np.min(disp)) / (np.max(disp) - np.min(disp))
+    cv.normalize(disp, disp, 0, 255, cv.NORM_MINMAX)
 
     # convert to uint8
     disp = disp.astype("uint8")
