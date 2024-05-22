@@ -1,0 +1,14 @@
+2.d. ps0-2-b-1.png looks more like what I would expect to see in a monochrome image. Every part has some form of detail, in contrast to e.g. ps0-2-c-1.png where there is no detail in the see for example (uniform black). Therefore I expect CV algorithms to work better on ps0-2-b-1.png.
+4.a.
+    import numpy as np
+    image_1_g_max = np.max(image_1_g)
+    image_1_g_min = np.min(image_1_g)
+    image_1_g_mean = np.mean(image_1_g)
+    image_1_g_std = np.std(image_1_g)
+    print(image_1_g_max,image_1_g_min, image_1_g_mean, image_1_g_std)
+
+>> 255 0 141.93781382978725 51.16139793046494
+
+4.d. negative values indicate areas where the shifted image contained a brighter pixel than the non-shifted image.
+
+5.c. ps0-5-b-1.png looks better, because the blue channel has a greater standard deviation?
