@@ -9,11 +9,12 @@
 
 #     % TODO: Your code here
 # end
+
 import cv2 as cv
 import numpy as np 
 
 def hough_lines_draw(img, outfile, peaks, rho_list, theta_list):
-
+    # get peaks and draw line at peaks
     for peak in peaks:
         rho = peak[0] - len(rho_list)/2 
         theta = peak[1] * (np.pi/180)
@@ -28,6 +29,6 @@ def hough_lines_draw(img, outfile, peaks, rho_list, theta_list):
         x_1 = round(x0 - 1000*(-b))
         y_1 = round(y0 - 1000*(a))
 
-        cv.line(img, (x_0, y_0), (x_1, y_1), color=(255,255,0) ,thickness=2)
+        cv.line(img, (x_0, y_0), (x_1, y_1), color=(0,0,255) ,thickness=2)
 
     cv.imwrite(outfile, img.astype("uint8"))

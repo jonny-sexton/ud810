@@ -23,33 +23,51 @@
 # end
 
 import numpy as np
+import cv2 as cv
 
-def hough_peaks(H, n):
+import sys
+sys.path.append('./solutions/utils/')
+from toolbox import *
+
+def hough_peaks(H, n, nhood_size=10):
     peaks=[]
     
     for i in range(n):
         max_value = np.where(H == np.max(H))
-        # print(len(max_value))
 
         if len(max_value) == 2:
             x = max_value[0][0]
             y = max_value[1][0]
 
-            if H[x][y] == 0:
+            if H[x,y] == 0:
                 break
 
             peaks.append([y,180 - x]) # don't know why I need to subtract it from 180°, but I do
-            H[x][y] = 0
+            x_range_min = int(max(0, x-nhood_size))
+            x_range_max = int(min(H.shape[0], x+nhood_size))
+            y_range_min = int(max(0, y-nhood_size))
+            y_range_max = int(min(H.shape[1], y+nhood_size))
+
+            # nms
+            H[x_range_min:x_range_max,y_range_min:y_range_max] = 0
         
         elif len(max_value) == 3:
             x = max_value[0][0]
             y = max_value[1][0]
-            z = max_value[2][0]
+            r = max_value[2][0]
 
-            if H[x][y][z] == 0:
+            if H[x][y][r] == 0:
                 break
 
-            peaks.append([y,180 - x, z]) # don't know why I need to subtract it from 180°, but I do
-            H[x][y][z] = 0
+            peaks.append([y,180 - x, r]) # don't know why I need to subtract it from 180°, but I do
+            x_range_min = int(max(0, x-nhood_size))
+            x_range_max = int(min(H.shape[0], x+nhood_size))
+            y_range_min = int(max(0, y-nhood_size))
+            y_range_max = int(min(H.shape[1], y+nhood_size))
+            r_range_min = int(max(0, r-nhood_size))
+            r_range_max = int(min(H.shape[1], r+nhood_size))
+
+            # nms
+            H[x_range_min:x_range_max,y_range_min:y_range_max,r_range_min:r_range_max] = 0
 
     return np.array(peaks)

@@ -29,10 +29,10 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 
 def hough_lines_acc(img_edge, Theta=[0, 1, 180], RhoResolution=1):
-
+    # get x,y coords of edge pixels
     edge_pix = np.squeeze(np.where(np.max(img_edge) == img_edge)).T
 
-    
+    # define bins size for theta,rho
     bins_size = int((Theta[2]-Theta[0])/Theta[1])
     bins_theta = np.linspace(Theta[0], Theta[2], bins_size+1)
 
@@ -41,16 +41,12 @@ def hough_lines_acc(img_edge, Theta=[0, 1, 180], RhoResolution=1):
 
     bins_array = np.zeros((len(bins_theta), len(bins_rho)))
 
+    # iterate each edge pixel and cast votes
     for pix in edge_pix:
         x, y = pix
 
         for theta in range(-90, 90, 1): # don't know why it needs to be -90:90 instead of 0:180, but it does.
             rho = round((x * np.cos(np.deg2rad(theta))) + (y * np.sin(np.deg2rad(theta))))
-
-            # vote
             bins_array[theta+90][rho+max_rho] += 1
-
-    # plt.imshow(bins_array.T, interpolation='none', cmap="RdYlBu")
-    # plt.show()
 
     return(bins_array, bins_theta, bins_rho)
