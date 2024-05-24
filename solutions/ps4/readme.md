@@ -10,7 +10,7 @@ transA.jpg Gradient Pair (I_x, I_y) Image:
 
 simA.jpg Gradient Pair (I_x, I_y) Image:
 
-![ps4-1-a-1.png](output/ps4-1-a-1.png)
+![ps4-1-a-2.png](output/ps4-1-a-2.png)
 
 ### B
 
