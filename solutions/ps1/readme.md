@@ -138,7 +138,7 @@ Hough circles:
 
 First off, I set the minimum radius to 20, so that fine grain stuff e.g. noise wouldn't be searched for. Then I modified the algorithm to accomodate different radius sizes, by adding a 3rd dimension to the accumulator array, and for each edge pixel voting once for each radius size.
 
-It works quite well and I am sure that by further tweaking the parameters it would be possible to get rid of the incorrect circles.
+I am pleased with the results, further tweaking of the parameters would make it possible to get rid of the incorrect circles.
 
 ## Question 8
 

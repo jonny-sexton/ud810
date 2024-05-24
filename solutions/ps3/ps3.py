@@ -5,30 +5,20 @@ from F_least_squares import F_least_squares
 from M_SVD import M_SVD
 from F_SVD import F_SVD
 
-def visualize_pts(img, pts): 
-    
-    for pt in pts:
-        x = pt[0]
-        y = pt[1]
-        x = int(x) - 1
-        y = int(y) - 1
-        # print(x, y)
-        img = cv.circle(img, (x, y), radius=3, color=(0, 0, 255), thickness=-1)
+from collections import OrderedDict
+import sys
+sys.path.append('./solutions/utils/')
+from toolbox import *
 
-    cv.imshow("", img)
-    cv.waitKey(0)
-
-
-if __name__ == "__main__":
-
+def ps3_1_a():
     # visualize points
-    img = cv.imread("problem-sets/ps3/input/pic_a.jpg")
-    pts_img = "problem-sets/ps3/input/pts2d-pic_a.txt"
+    img = cv.imread("solutions/ps3/input/pic_a.jpg")
+    pts_img = "solutions/ps3/input/pts2d-pic_a.txt"
     #visualize_pts(img, pts)
 
     # read points files as list of points
-    fp_pts_2d = "problem-sets/ps3/input/pts2d-norm-pic_a.txt"
-    fp_pts_3d = "problem-sets/ps3/input/pts3d-norm.txt"
+    fp_pts_2d = "solutions/ps3/input/pts2d-norm-pic_a.txt"
+    fp_pts_3d = "solutions/ps3/input/pts3d-norm.txt"
 
     pts_2d = []
     pts_3d = [] 
@@ -46,11 +36,10 @@ if __name__ == "__main__":
     pts_2d = np.array(pts_2d)
     pts_3d = np.array(pts_3d)
 
-    # M = M_least_squares(pts_2d, pts_3d)
-    M = M_SVD(pts_2d, pts_3d)
+    M = M_least_squares(pts_2d, pts_3d)
+    # M = M_SVD(pts_2d, pts_3d)
 
     ## 1-a
-    print("1-a\n")
     # print M
     print("M:\n",M)
 
@@ -70,11 +59,11 @@ if __name__ == "__main__":
     res = (pt_2d[0] - pts_2d[-1][0], pt_2d[1] - pts_2d[-1][1])
     print("residual:\n", res)
 
-    ## 2-a
+def ps3_1_b():
     # get points
     # read points files as list of points
-    fp_pts_2d = "problem-sets/ps3/input/pts2d-pic_a.txt"
-    fp_pts_3d = "problem-sets/ps3/input/pts3d.txt"
+    fp_pts_2d = "solutions/ps3/input/pts2d-pic_a.txt"
+    fp_pts_3d = "solutions/ps3/input/pts3d.txt"
 
     pts_2d = []
     pts_3d = [] 
@@ -184,27 +173,22 @@ if __name__ == "__main__":
     [-1.26382400e-03 -2.06754310e-03  5.12567068e-04  1.00000000e+00]]
     """
 
-    ## 1-c
-    print("\n## 1-c")
+def ps3_1_c():
     M = np.array([[-2.33444568, -0.10840978, 0.33616745,  736.784208],
     [-0.23093639, -0.47948147,  2.08969314,  153.505539],
     [-0.00126382, -0.00206754,  0.00051256,  1.0]])
 
-    # M = best_k[2]
-    # print(M)
-
     Q = M[:,:3]
     m_4 = M[:,3]
-
 
     C = -np.linalg.inv(Q) @ m_4
 
     print("C:", C) 
 
-    ## 2-a
+def ps3_2_a():
     # read points files as list of points
-    fp_pts_2d_a = "problem-sets/ps3/input/pts2d-pic_a.txt"
-    fp_pts_2d_b = "problem-sets/ps3/input/pts2d-pic_b.txt"
+    fp_pts_2d_a = "solutions/ps3/input/pts2d-pic_a.txt"
+    fp_pts_2d_b = "solutions/ps3/input/pts2d-pic_b.txt"
 
     pts_2d_a = []
     pts_2d_b = [] 
@@ -223,27 +207,49 @@ if __name__ == "__main__":
     pts_2d_b = np.array(pts_2d_b)
 
     # F = F_least_squares(pts_2d_a, pts_2d_b)
+    global F 
     F = F_SVD(pts_2d_a, pts_2d_b)
 
-    print("\n## 2-a")
     print("F:", F)
 
-    ## 2-b
-    print("\n## 2-b")
+def ps3_2_b():
     # compute SVD of F
     U, D, V_T = np.linalg.svd(F)
 
     D = np.array([[D[0], 0, 0], [0, D[1], 0], [0, 0, 0]])
 
+    global F_hat
+
     F_hat = U @ D @ V_T
 
     print("F_hat:", F_hat)
 
-    ## 2-c
-    print("## 2-c")
+def ps3_2_c():
+    pic_a = cv.imread("solutions/ps3/input/pic_a.jpg")
+    pic_b = cv.imread("solutions/ps3/input/pic_b.jpg")
 
-    pic_a = cv.imread("problem-sets/ps3/input/pic_a.jpg")
-    pic_b = cv.imread("problem-sets/ps3/input/pic_b.jpg")
+    # read points files as list of points
+    fp_pts_2d_a = "solutions/ps3/input/pts2d-pic_a.txt"
+    fp_pts_2d_b = "solutions/ps3/input/pts2d-pic_b.txt"
+
+    global pts_2d_a
+    global pts_2d_b
+
+    pts_2d_a = []
+    pts_2d_b = [] 
+
+    # read files and append to lists
+    with open(fp_pts_2d_a) as file_pts_2d_a, open(fp_pts_2d_b) as file_pts_2d_b:
+        for line1, line2 in zip(file_pts_2d_a, file_pts_2d_b):
+            u_a, v_a = list(map(float,line1.split()))
+            u_b, v_b = list(map(float,line2.split()))
+
+            pts_2d_a.append([u_a, v_a])
+            pts_2d_b.append([u_b, v_b])
+    
+    # convert to numpy array
+    pts_2d_a = np.array(pts_2d_a)
+    pts_2d_b = np.array(pts_2d_b)
 
     pts_2d_a = np.column_stack((pts_2d_a, np.ones(pts_2d_a.shape[0])))
     pts_2d_b = np.column_stack((pts_2d_b, np.ones(pts_2d_b.shape[0])))
@@ -268,15 +274,14 @@ if __name__ == "__main__":
         p_b_r = (p_b_r / p_b_r[-1]).astype(int)
         cv.line(pic_b, (p_b_l[:2]), (p_b_r[:2]), (0, 0, 255), thickness=2)
 
-    cv.imshow('', np.hstack((pic_b,pic_a))); cv.waitKey(0); cv.destroyAllWindows()
+    # cv.imshow('', np.hstack((pic_b,pic_a))); cv.waitKey(0); cv.destroyAllWindows()
 
-    # cv.imwrite("problem-sets/ps3/output/ps3-2-c-1.png", pic_a)
-    # cv.imwrite("problem-sets/ps3/output/ps3-2-c-2.png", pic_b)
+    cv.imwrite("solutions/ps3/output/ps3-2-c-1.png", pic_a)
+    cv.imwrite("solutions/ps3/output/ps3-2-c-2.png", pic_b)
 
-    ## 2-d
-    print("\n## 2-d")
-    pic_a = cv.imread("problem-sets/ps3/input/pic_a.jpg")
-    pic_b = cv.imread("problem-sets/ps3/input/pic_b.jpg")
+def ps3_2_d():
+    pic_a = cv.imread("solutions/ps3/input/pic_a.jpg")
+    pic_b = cv.imread("solutions/ps3/input/pic_b.jpg")
 
     # shift centroid to average centre of points
     com_a = np.mean(pts_2d_a, axis=0)
@@ -298,6 +303,9 @@ if __name__ == "__main__":
     S_b = np.array([[theta_b[0], 0, 0], [0, theta_b[1], 0], [0, 0, 1]])
 
     # build affine transformation (translation and scale)
+    global A_a
+    global A_b
+
     A_a = S_a @ T_a
     A_b = S_b @ T_b
 
@@ -315,10 +323,22 @@ if __name__ == "__main__":
     pts_2d_b_aff = np.array(pts_2d_b_aff)
 
     # compute F and plot lines as before
+    global F_hat
     F_hat = F_least_squares(pts_2d_a_aff[:, :2], pts_2d_b_aff[:, :2])
 
-   # denormalize F
+    print("T_a:\n", A_a)
+    print("\nT_b:\n", A_b)
+    print("\nF_hat:\n", F_hat)
+   
+
+def ps3_2_e():
+    pic_a = cv.imread("solutions/ps3/input/pic_a.jpg")
+    pic_b = cv.imread("solutions/ps3/input/pic_b.jpg")
+
+    # denormalize F
     F = A_b.T @ F_hat @ A_a
+
+    print("F:\n",F)
     
     epilines_a = pts_2d_b @ F
     epilines_b = pts_2d_a @ F.T
@@ -338,8 +358,35 @@ if __name__ == "__main__":
         p_b_r = (p_b_r / p_b_r[-1]).astype(int)
         cv.line(pic_b, (p_b_l[:2]), (p_b_r[:2]), (0, 0, 255), thickness=2)
 
-    cv.imshow('', np.hstack((pic_b,pic_a))); cv.waitKey(0); cv.destroyAllWindows()
+    # cv.imshow('', np.hstack((pic_b,pic_a))); cv.waitKey(0); cv.destroyAllWindows()
 
-    # cv.imwrite("problem-sets/ps3/output/ps3-2-e-1.png", pic_a)
-    # cv.imwrite("problem-sets/ps3/output/ps3-2-e-2.png", pic_b)
+    cv.imwrite("solutions/ps3/output/ps3-2-e-1.png", pic_a)
+    cv.imwrite("solutions/ps3/output/ps3-2-e-2.png", pic_b)
 
+def visualize_pts(img, pts): 
+    
+    for pt in pts:
+        x = pt[0]
+        y = pt[1]
+        x = int(x) - 1
+        y = int(y) - 1
+        # print(x, y)
+        img = cv.circle(img, (x, y), radius=3, color=(0, 0, 255), thickness=-1)
+
+    cv.imshow("", img)
+    cv.waitKey(0)
+
+ps3_list = OrderedDict([('1a', ps3_1_a), ('1b', ps3_1_b), ('1c', ps3_1_c), ('2a', ps3_2_a), ('2b', ps3_2_b), ('2c', ps3_2_c), ('2d', ps3_2_d), ('2e', ps3_2_e)])
+
+if __name__=="__main__":
+    if len(sys.argv) == 2:
+        if sys.argv[1] in ps3_list:
+            print('\nExecuting task %s\n=================='%sys.argv[1])
+            ps3_list[sys.argv[1]]()
+        else:
+            print('\nGive argument from list {1a,1b,1c,2a,2b,2c,2d,2e} for the corresponding task')
+    else:
+        print('\n * Executing all tasks: * \n')
+        for idx in ps3_list.keys():
+            print('\nExecuting task: %s\n=================='%idx)
+            ps3_list[idx]()

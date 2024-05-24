@@ -218,7 +218,7 @@ if __name__=="__main__":
             print('\nExecuting task %s\n=================='%sys.argv[1])
             ps1_list[sys.argv[1]]()
         else:
-            print('\nGive argument from list {1a,2a,2b,2c,2d,3a,4a,4b,4c,4d,5a,5b,5c} for the corresponding task')
+            print('\nGive argument from list {1a,2a,2b,2c,2d,3a,3b,3c,4a,4b,4c,5a,5b,6a,6b,6c,7a,7b,8a,8b,8c} for the corresponding task')
     else:
         print('\n * Executing all tasks: * \n')
         for idx in ps1_list.keys():
