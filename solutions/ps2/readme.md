@@ -9,7 +9,7 @@ Disparity maps:
 |![ps2-1-a-1.png](output/ps2-1-a-1.png)<br>SSD Disparity (L-->R)|![ps2-1-a-2.png](output/ps2-1-a-2.png)<br>SSD Disparity (R-->L)|
 |:-:|:-:|
 
-They both have the same polarity due to the use of the `inv=1`flag used for the (R-->L) disp map.
+They both have the same polarity due to the use of the `inv=1` flag used for the (R-->L) disp map.
 
 ## Question 2
 
