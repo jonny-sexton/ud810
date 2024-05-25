@@ -122,4 +122,4 @@ simA.jpg/simB.jpg Overlay (Affine):
 Remarks:
 - Both transforms gave similar results, due to the absence of warping between simA.jpg and simB.jpg, therefore rendering the warping component of the Affine Matrix translation useless.
 - This can be seen just by comparing the Transform Matrices visually, both contain similar values.
-- Transformation accuracy seems to be improved around feature points, therefore to ensure a more accurate Transformation Matrix computation a even spread of matched features that cover the entire image should be aimed for.
+- Transformation accuracy seems to be improved around feature points, therefore to ensure a more accurate Transform Matrix computation an even spread of matched features that cover the entire image should be aimed for.
