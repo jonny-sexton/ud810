@@ -183,6 +183,9 @@ def ransac_trans(matches, points_1, points_2, error=3):
         if len(consensus_set_temp) > len(consensus_set):
             S = S_temp
             consensus_set = consensus_set_temp
+    
+    print("Consensus set size:", len(consensus_set))
+    print("Percentage matches:", len(consensus_set)/len(matches))
 
     return consensus_set, S
 
@@ -254,6 +257,9 @@ def ransac_sim(matches, points_1, points_2, error=3):
         if len(consensus_set_temp) > len(consensus_set):
             consensus_set = consensus_set_temp
             S = S_temp
+
+    print("Consensus set size:", len(consensus_set))
+    print("Percentage matches:", len(consensus_set)/len(matches))
 
     return consensus_set, S
 
@@ -338,5 +344,8 @@ def ransac_aff(matches, points_1, points_2, error=3):
         if len(consensus_set_temp) > len(consensus_set):
             consensus_set = consensus_set_temp
             S = S_temp
+
+    print("Consensus set size:", len(consensus_set))
+    print("Percentage matches:", len(consensus_set)/len(matches))
 
     return consensus_set, S

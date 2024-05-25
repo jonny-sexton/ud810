@@ -75,6 +75,13 @@ Translational Transform Matrix S:
  [   0    1  -75]]
  ```
 
+Consensus set data:
+
+```
+Consensus set size: 16
+Percentage matches: 0.013781223083548665
+```
+
 ### B
 
 simA.jpg/simB.jpg Filtered Matches (RANSAC Similarity Transform):
@@ -85,6 +92,12 @@ Similarity Transform Matrix S:
 ```
 [[  0.98371707  -0.27971742  36.52251825]
  [  0.27971742   0.98371707 -60.54754571]]
+```
+Consensus set data:
+
+```
+Consensus set size: 195
+Percentage matches: 0.18327067669172933
 ```
 
 ### C
@@ -97,6 +110,12 @@ Affine Transform Matrix S:
 ```
 [[  0.97605686  -0.25925926  34.60381594]
  [  0.293054     0.97530864 -61.70295548]]
+```
+Consensus set data:
+
+```
+Consensus set size: 202
+Percentage matches: 0.18984962406015038
 ```
 
 ### D
