@@ -37,9 +37,7 @@ simA.jpg/simB.jpg Harris Corners:
 |:-:|:-:|
 
 Remarks:
-- Setting the Sigma to 2 for computing the Harris value (sigma=2) made a huge difference. Then just need to fine tune the threshold to get as many features as possible.
 - Finding the maximum number of features from the Harris value map was improved massively by using the mean pixel intensity to compute the threshold value.
-- The rotated image does not behave so well. I imagine this is because the partial derivatives I_x, I_y become I_xy. This value is set to zero in the M matrix. Furthermore, due to sampling issues, the diagonal lines create a lot of small derivatives in the I_x, I_y direction.
 
 ## Question 2
 
