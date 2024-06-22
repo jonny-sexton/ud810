@@ -3,6 +3,9 @@ import numpy as np
 def normalize_01(img):
     return (img - np.min(img)) / (np.max(img) - np.min(img))
 
+def normalize_11(img):
+    return ((2 * (img - np.min(img))) / (np.max(img) - np.min(img))) - 1
+
 def normalize_0255(img):
     return (255.0 * (img - np.min(img))) / (np.max(img) - np.min(img))
 
