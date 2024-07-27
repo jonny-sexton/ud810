@@ -38,7 +38,7 @@ A3 (`tau = 50`):
 a, b, c = PS7A1P2T1, PS7A2P2T1, PS7A3P2T1
 i, j, k = PS7A1P1T1, PS7A2P1T1, PS7A3P1T1
 
-[[(a,k), (b,k), (c,k)],
+[[(a,k),(b,k),(c,k)],
 [(a,j),(b,j),(c,j)],
 [(a,i),(b,i),(c,i)]]
 
