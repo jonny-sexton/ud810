@@ -11,4 +11,4 @@ In this repository you will find my solutions (readme + code) to the UD810 probl
 - [PS4](solutions/ps4/readme.md)
 - [PS5](solutions/ps5/readme.md)
 - [PS6](solutions/ps6/readme.md)
-- PS7
+- [PS7](solutions/ps7/readme.md)
