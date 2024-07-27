@@ -8,8 +8,6 @@ import sys
 sys.path.append('./solutions/utils/')
 from toolbox import *
 
-from ps6_functions import *
-
 
 def ps6_1_a():
     vid = "solutions/ps6/input/pres_debate.avi"

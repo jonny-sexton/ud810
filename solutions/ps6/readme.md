@@ -1,4 +1,4 @@
-# Problem Set 5: Optic Flow
+# Problem Set 6: Particle Filters
 
 ## Question 1
 
